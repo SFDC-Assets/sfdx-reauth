@@ -1,0 +1,46 @@
+<!--
+ - Created by ryan.cox on 1/29/20.
+ -->
+
+<aura:component description="ReAuth" controller="ReAuthController" implements="flexipage:availableForAllPageTypes,force:hasRecordId" >
+
+    <!-- input attributes -->
+    <aura:attribute name="recordId" type="String"/>
+
+    <!-- private attributes -->
+    <aura:attribute name="password" type="String"/>
+    <aura:attribute name="authPassed" type="Boolean" default="false"/>
+    <aura:attribute name="errorMessage" type="String" default=""/>
+
+    <lightning:card title="Electronic Signature Approval">
+    <form id="approve-auth">
+
+        <lightning:layout class="slds-p-around--small">
+            <lightning:layoutItem>
+
+                <c:Password password="{!v.password}"/>
+
+                <lightning:button label="Approve" variant="brand" class="slds-m-vertical--medium"
+                                  onclick="{!c.checkAuth}"/>
+
+            </lightning:layoutItem>
+        </lightning:layout>
+
+        <lightning:layout class="slds-p-horizontal_small">
+            <lightning:layoutItem>
+
+                <aura:if isTrue="{!v.authPassed == true}">
+                    Authentication Passed
+                </aura:if>
+
+                <aura:if isTrue="{!v.errorMessage != ''}">
+                    Authentication Failed: {!v.errorMessage}
+                </aura:if>
+
+            </lightning:layoutItem>
+        </lightning:layout>
+
+    </form>
+    </lightning:card>
+
+</aura:component>
